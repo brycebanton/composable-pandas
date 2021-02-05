@@ -33,7 +33,7 @@ def casefold(col):
     return col.str.casefold()
 
 @pipeable
-def center(width,col) :
+def center(width,col,*,fillchar = " ") :
     """ center(width, fillchar=' ') method of pandas.core.strings.accessor.StringMethods instance
     Pad left and right side of strings in the Series/Index.
     
@@ -50,10 +50,11 @@ def center(width,col) :
     Returns
     -------
     filled : Series/Index of objects."""
-    return col.str.center(width)
+    return col.str.center(width,fillchar=fillchar)
 
 @pipeable
-def contains(pat,col):
+def contains(pat,col,*,flags = 0,na=None,regex=True):
+
     """contains(pat, case=True, flags=0, na=None, regex=True) method of pandas.core.strings.accessor.StringMethods instance
     Test if pattern or regex is contained within a string of a Series or Index.
     
@@ -92,9 +93,10 @@ def contains(pat,col):
     4      NaN
     dtype: object"""
 
-    return col.str.contains(pat)
+    return col.str.contains(pat,flags=flags,na=na,regex=regex)
+
 @pipeable
-def count(pat,col):
+def count(pat,col,*,flags = 0):
     """count(pat, flags=0) method of pandas.core.strings.accessor.StringMethods instance
     Count occurrences of pattern in each string of the Series/Index.
     
@@ -140,10 +142,10 @@ def count(pat,col):
     5    0.0
     6    1.0
     dtype: float64"""
-    return col.str.count(pat)
+    return col.str.count(pat,flags = flags)
 
 @pipeable
-def cat(sep,col):
+def cat(sep,col,*,others=None,na_rep=None, join=None):
     """  Help on method cat in module pandas.core.strings.accessor:
 
     cat(others=None, sep=None, na_rep=None, join='left') method of pandas.core.strings.accessor.StringMethods instance
@@ -189,4 +191,4 @@ def cat(sep,col):
     >>> s = pd.Series(['a', 'b', np.nan, 'd'])
     >>> s >> cat(sep=' ')
     'a b d'"""
-    return col.str.cat(sep=sep)
+    return col.str.cat(sep=sep, others=others, na_rep=na_rep, join = join)

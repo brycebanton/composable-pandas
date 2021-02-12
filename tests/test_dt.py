@@ -17,7 +17,6 @@ from pandas.tests.tseries.offsets.common import assert_offset_equal
 from pandas.tseries import offsets
 from pandas.tseries.offsets import Hour, Micro, Milli, Minute, Nano, Second
 from pandas._libs.tslibs.timezones import dateutil_gettz as gettz, get_timezone
-#from pandas.compat import np_datetime64_compat
 import pandas.util._test_decorators as td
 from pandas import NaT, Timedelta, Timestamp
 import pandas._testing as tm
@@ -78,11 +77,11 @@ def test_names(data, time_locale):
     assert result_day == expected_day
     assert result_month == expected_month
 
-    # Test NaT
-    # nan_ts = Timestamp(NaT)
-    # assert np.isnan(nan_ts >> day_name(locale = time_locale))
-    # assert np.isnan(nan_ts >> month_name(locale = time_locale))
-
+    #Test NaT
+    nan_ts = Timestamp(NaT)
+    nan_ts = pd.Series(nan_ts)
+    assert np.array(np.isnan(nan_ts >> day_name(locale = time_locale)))
+    assert np.array(np.isnan(nan_ts >> month_name(locale = time_locale)))
 
 
 def test_year():
